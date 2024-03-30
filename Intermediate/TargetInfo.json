@@ -1,0 +1,14 @@
+{
+	"Targets": [
+		{
+			"Name": "CPPStudy",
+			"Path": "..\\Source\\CPPStudy.Target.cs",
+			"Type": "Game"
+		},
+		{
+			"Name": "CPPStudyEditor",
+			"Path": "..\\Source\\CPPStudyEditor.Target.cs",
+			"Type": "Editor"
+		}
+	]
+}

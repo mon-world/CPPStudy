@@ -1,0 +1,8 @@
+{
+	"SourceFiles": [
+		"C:\\UnrealProjects\\CPPStudy\\Source\\CPPStudy\\CPPStudy.Build.cs",
+		"C:\\UnrealProjects\\CPPStudy\\Source\\CPPStudy.Target.cs",
+		"C:\\UnrealProjects\\CPPStudy\\Source\\CPPStudyEditor.Target.cs"
+	],
+	"EngineVersion": "5.3.2"
+}

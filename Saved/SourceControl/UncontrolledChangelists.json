@@ -1,0 +1,20 @@
+{
+	"version": 1,
+	"changelists": [
+		{
+			"guid": "00000000000000000000000000000000",
+			"description": "Default Uncontrolled Changelist",
+			"files": [
+				"C:/UnrealProjects/CPPStudy/Content/StarterContent/HDRI/HDRI_Epic_Courtyard_Daylight.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Input/IMC_Controller.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Input/IA_Jump0.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Input/IA_Jump.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Input/IA_Look0.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Input/IA_Look.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Input/IA_Move0.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Input/IA_Move.uasset",
+				"C:/UnrealProjects/CPPStudy/Content/Blueprints/BP_CSPlayer.uasset"
+			]
+		}
+	]
+}
