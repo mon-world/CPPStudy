@@ -25,7 +25,7 @@ ACSPlayer::ACSPlayer()
 	// StaticLoadObject : 파일 이름으로 객체를 찾거나 로드한다.	// https://docs.unrealengine.com/4.26/en-US/API/Runtime/CoreUObject/UObject/StaticLoadObject/
 	// FObjectFinder가 템플릿이고, 따라서 TempMesh는 USkeletalMesh의 자료형을 갖는다.
 	// TEXT에 넣은 경로를 가져와라.
-	ConstructorHelpers::FObjectFinder<USkeletalMesh> TempMesh(TEXT("SkeletalMesh'/Game/Characters/Mannequin_UE4/Meshes/SK_Mannequin.SK_Mannequin'"));
+	ConstructorHelpers::FObjectFinder<USkeletalMesh> TempMesh(TEXT("SkeletalMesh'/Game/Characters/Mannequins/Meshes/SKM_Manny.SKM_Manny'"));
 	if (TempMesh.Succeeded())
 	{
 		// GetMesh : 메쉬 컴포넌트를 가져온다.
@@ -133,3 +133,10 @@ void ACSPlayer::Look(const FInputActionInstance& Instance)
 	AddControllerPitchInput(LookVector.Y);
 
 }
+
+
+/* 궁금증
+1. 감도 조절 변수는 없나? - 그냥 곱으로 해버리기?
+2. 
+
+*/
