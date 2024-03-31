@@ -41,6 +41,14 @@ void EmptyLinkFunctionForGeneratedCodeCSPlayer() {}
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_csCamComp;
 #if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_walkSpeed_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_walkSpeed;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_sprintSpeed_MetaData[];
+#endif
+		static const UECodeGen_Private::FFloatPropertyParams NewProp_sprintSpeed;
+#if WITH_METADATA
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_DefaultMappingContext_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_DefaultMappingContext;
@@ -56,6 +64,10 @@ void EmptyLinkFunctionForGeneratedCodeCSPlayer() {}
 		static const UECodeGen_Private::FMetaDataPairParam NewProp_MoveAction_MetaData[];
 #endif
 		static const UECodeGen_Private::FObjectPropertyParams NewProp_MoveAction;
+#if WITH_METADATA
+		static const UECodeGen_Private::FMetaDataPairParam NewProp_SprintAction_MetaData[];
+#endif
+		static const UECodeGen_Private::FObjectPropertyParams NewProp_SprintAction;
 		static const UECodeGen_Private::FPropertyParamsBase* const PropPointers[];
 		static const FCppClassTypeInfoStatic StaticCppClassTypeInfo;
 		static const UECodeGen_Private::FClassParams ClassParams;
@@ -101,8 +113,31 @@ void EmptyLinkFunctionForGeneratedCodeCSPlayer() {}
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACSPlayer_Statics::NewProp_csCamComp = { "csCamComp", nullptr, (EPropertyFlags)0x00100000000a001d, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACSPlayer, csCamComp), Z_Construct_UClass_UCameraComponent_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ACSPlayer_Statics::NewProp_csCamComp_MetaData), Z_Construct_UClass_ACSPlayer_Statics::NewProp_csCamComp_MetaData) };
 #if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ACSPlayer_Statics::NewProp_walkSpeed_MetaData[] = {
+		{ "Category", "Vector|Speed" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// \xef\xbf\xbd\xcc\xb5\xef\xbf\xbd\xef\xbf\xbd\xd3\xb5\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd -> Vector \xef\xbf\xbd\xcc\xb6\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\n" },
+#endif
+		{ "ModuleRelativePath", "public/CSPlayer.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "\xef\xbf\xbd\xcc\xb5\xef\xbf\xbd\xef\xbf\xbd\xd3\xb5\xef\xbf\xbd \xc3\xb3\xef\xbf\xbd\xef\xbf\xbd -> Vector \xef\xbf\xbd\xcc\xb6\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACSPlayer_Statics::NewProp_walkSpeed = { "walkSpeed", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACSPlayer, walkSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ACSPlayer_Statics::NewProp_walkSpeed_MetaData), Z_Construct_UClass_ACSPlayer_Statics::NewProp_walkSpeed_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ACSPlayer_Statics::NewProp_sprintSpeed_MetaData[] = {
+		{ "Category", "Vector|Speed" },
+		{ "ModuleRelativePath", "public/CSPlayer.h" },
+	};
+#endif
+	const UECodeGen_Private::FFloatPropertyParams Z_Construct_UClass_ACSPlayer_Statics::NewProp_sprintSpeed = { "sprintSpeed", nullptr, (EPropertyFlags)0x0010000000020015, UECodeGen_Private::EPropertyGenFlags::Float, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACSPlayer, sprintSpeed), METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ACSPlayer_Statics::NewProp_sprintSpeed_MetaData), Z_Construct_UClass_ACSPlayer_Statics::NewProp_sprintSpeed_MetaData) };
+#if WITH_METADATA
 	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ACSPlayer_Statics::NewProp_DefaultMappingContext_MetaData[] = {
 		{ "Category", "Input" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// -------------------------\n" },
+#endif
 		{ "ModuleRelativePath", "public/CSPlayer.h" },
 	};
 #endif
@@ -128,13 +163,29 @@ void EmptyLinkFunctionForGeneratedCodeCSPlayer() {}
 	};
 #endif
 	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACSPlayer_Statics::NewProp_MoveAction = { "MoveAction", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACSPlayer, MoveAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ACSPlayer_Statics::NewProp_MoveAction_MetaData), Z_Construct_UClass_ACSPlayer_Statics::NewProp_MoveAction_MetaData) };
+#if WITH_METADATA
+	const UECodeGen_Private::FMetaDataPairParam Z_Construct_UClass_ACSPlayer_Statics::NewProp_SprintAction_MetaData[] = {
+		{ "Category", "Input" },
+#if !UE_BUILD_SHIPPING
+		{ "Comment", "// shift \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xd6\xb4\xef\xbf\xbd \xef\xbf\xbd\xd7\xbc\xef\xbf\xbd \xef\xbf\xbd\xdf\xb0\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\n" },
+#endif
+		{ "ModuleRelativePath", "public/CSPlayer.h" },
+#if !UE_BUILD_SHIPPING
+		{ "ToolTip", "shift \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd\xc6\xae \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xd6\xb4\xef\xbf\xbd \xef\xbf\xbd\xd7\xbc\xef\xbf\xbd \xef\xbf\xbd\xdf\xb0\xef\xbf\xbd\xef\xbf\xbd\xef\xbf\xbd \xef\xbf\xbd\xef\xbf\xbd" },
+#endif
+	};
+#endif
+	const UECodeGen_Private::FObjectPropertyParams Z_Construct_UClass_ACSPlayer_Statics::NewProp_SprintAction = { "SprintAction", nullptr, (EPropertyFlags)0x0010000000000001, UECodeGen_Private::EPropertyGenFlags::Object, RF_Public|RF_Transient|RF_MarkAsNative, nullptr, nullptr, 1, STRUCT_OFFSET(ACSPlayer, SprintAction), Z_Construct_UClass_UInputAction_NoRegister, METADATA_PARAMS(UE_ARRAY_COUNT(Z_Construct_UClass_ACSPlayer_Statics::NewProp_SprintAction_MetaData), Z_Construct_UClass_ACSPlayer_Statics::NewProp_SprintAction_MetaData) };
 	const UECodeGen_Private::FPropertyParamsBase* const Z_Construct_UClass_ACSPlayer_Statics::PropPointers[] = {
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_springArmComp,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_csCamComp,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_walkSpeed,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_sprintSpeed,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_DefaultMappingContext,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_JumpAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_LookAction,
 		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_MoveAction,
+		(const UECodeGen_Private::FPropertyParamsBase*)&Z_Construct_UClass_ACSPlayer_Statics::NewProp_SprintAction,
 	};
 	const FCppClassTypeInfoStatic Z_Construct_UClass_ACSPlayer_Statics::StaticCppClassTypeInfo = {
 		TCppClassTypeTraits<ACSPlayer>::IsAbstract,
@@ -174,9 +225,9 @@ void EmptyLinkFunctionForGeneratedCodeCSPlayer() {}
 		static const FClassRegisterCompiledInInfo ClassInfo[];
 	};
 	const FClassRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_CPPStudy_Source_CPPStudy_public_CSPlayer_h_Statics::ClassInfo[] = {
-		{ Z_Construct_UClass_ACSPlayer, ACSPlayer::StaticClass, TEXT("ACSPlayer"), &Z_Registration_Info_UClass_ACSPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACSPlayer), 1115668796U) },
+		{ Z_Construct_UClass_ACSPlayer, ACSPlayer::StaticClass, TEXT("ACSPlayer"), &Z_Registration_Info_UClass_ACSPlayer, CONSTRUCT_RELOAD_VERSION_INFO(FClassReloadVersionInfo, sizeof(ACSPlayer), 1659901693U) },
 	};
-	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_CPPStudy_Source_CPPStudy_public_CSPlayer_h_876964915(TEXT("/Script/CPPStudy"),
+	static FRegisterCompiledInInfo Z_CompiledInDeferFile_FID_UnrealProjects_CPPStudy_Source_CPPStudy_public_CSPlayer_h_2957346878(TEXT("/Script/CPPStudy"),
 		Z_CompiledInDeferFile_FID_UnrealProjects_CPPStudy_Source_CPPStudy_public_CSPlayer_h_Statics::ClassInfo, UE_ARRAY_COUNT(Z_CompiledInDeferFile_FID_UnrealProjects_CPPStudy_Source_CPPStudy_public_CSPlayer_h_Statics::ClassInfo),
 		nullptr, 0,
 		nullptr, 0);

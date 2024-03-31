@@ -18,8 +18,13 @@ public:
 	// 여기에 플레이어 이동속도를 왜 추가하지?
 	// abp 창에서 변수로 사용하기 위함
 	// 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CSPlayerAnimation")
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CSPlayerAnimation") 
 	float speed = 0;
+
+	// 블랜드 스페이스의 방향을 위함
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "CSPlayerAnimation")
+	float direction = 0;
+
 
 	// 매 프레임 갱신되는 함수...를 내가 만들어야함
 	// NativeUpdateAnimation == Event Blueprint Update Animation == Tick() : 틱마다

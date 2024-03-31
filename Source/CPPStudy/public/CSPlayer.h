@@ -41,7 +41,17 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
 	class UCameraComponent* csCamComp;
 
-public:
+	// 이동속도 처리 -> Vector 이라는 곳에 묶어버리자
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Vector|Speed")
+	float walkSpeed = 600;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Vector|Speed")
+	float sprintSpeed = 900;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Vector|Speed")
+	//float dashDistance = 6000;
+
+
+	// -------------------------
+
 	UPROPERTY(EditAnywhere, Category = Input)
 	UInputMappingContext* DefaultMappingContext;
 
@@ -54,6 +64,16 @@ public:
 	UPROPERTY(EditAnywhere, Category = "Input")
 	UInputAction* MoveAction;
 
+	// shift 누르면 스프린트 할 수 있는 액션 추가할 것
+	UPROPERTY(EditAnywhere, Category = "Input")
+	UInputAction* SprintAction;
+
+	//UPROPERTY(EditAnywhere, Category = "Input")
+	//UInputAction* DashAction;
+
+
+
+
 	// Input | Jump : BP_Player의 details에 Input의 하위 카테고리로 Jump가 생긴다. 
 	// 그런데 이렇게 해버리면 기존에 있는 Input이 아니라 새로 Input이 생겨서 하위로 들어가서 보기가 좀...
 	//UPROPERTY(EditAnywhere, Category = "Input | Jump")
@@ -65,9 +85,14 @@ public:
 	//UPROPERTY(EditAnywhere, Category = "Input | Move")
 	//UInputAction* MoveAction;
 
+	// 달리기
+	
+
 protected:
 	void Move(const FInputActionInstance& Instance);
 	void Look(const FInputActionInstance& Instance);
-
+	void SprintStart(const FInputActionInstance& Instance);
+	void SprintEnd(const FInputActionInstance& Instance);
+	//void Dash(const FInputActionInstance& Instance);
 
 };

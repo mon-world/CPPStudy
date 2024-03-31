@@ -46,6 +46,9 @@ void UCSPlayerAnimation::NativeUpdateAnimation(float delta)
 
 		// 내가 가고있는 방향의 이동속도만 필요함
 		speed = FVector::DotProduct(forwardVector, velocity);
+
+		FVector rightVector = csPlayerAnim->GetActorRightVector();
+		direction = FVector::DotProduct(rightVector, velocity);
 		
 		// 플레이어가 공중에 있냐 없냐
 		// GetCharacterMovement

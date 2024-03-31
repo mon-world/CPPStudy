@@ -6,6 +6,7 @@
 #include <Camera/CameraComponent.h>
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
+#include <GameFramework/CharacterMovementComponent.h>
 
 // Sets default values
 //이름이 같으므로 생성자 함수이고, 생성자 함수이므로, 객체가 인스턴스화 될 때 자동으로 호출된다.
@@ -67,6 +68,9 @@ void ACSPlayer::BeginPlay()
 		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
 
+	// 초기 속도 설정 : 600
+	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
+
 
 }
 
@@ -83,10 +87,17 @@ void ACSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 
-
+	// 도대
 	Input->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACSPlayer::Jump);
 	Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACSPlayer::Look);
 	Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ACSPlayer::Move);
+	// 여기서 Input 그대로 사용할 수 없나?
+	// UEnhancedInputComponent 자체가 enhanced 에서 사용하기 위해 쓴것이므로...
+	// 아닌데 쓸 수 있을거같은데... 해냈다 <- 아님. 수정 필요
+	Input->BindAction(SprintAction, ETriggerEvent::Triggered, this, &ACSPlayer::SprintStart);
+	Input->BindAction(SprintAction, ETriggerEvent::Completed, this, &ACSPlayer::SprintEnd);
+	//// Triggered의 반대가 Completed : Triggered -> None
+	//Input->BindAction(DashAction, ETriggerEvent::Triggered, this, &ACSPlayer::Dash);
 
 
 }
@@ -134,9 +145,27 @@ void ACSPlayer::Look(const FInputActionInstance& Instance)
 
 }
 
+// 여길 어떻게든 고치기
+
+void ACSPlayer::SprintStart(const FInputActionInstance& Instance)
+{
+	GetCharacterMovement()->MaxWalkSpeed = sprintSpeed;
+}
+
+
+void ACSPlayer::SprintEnd(const FInputActionInstance& Instance)
+{
+	GetCharacterMovement()->MaxWalkSpeed = walkSpeed;
+}
+
+//void ACSPlayer::Dash(const FInputActionInstance& Instance)
+//{
+//
+//
+//}
 
 /* 궁금증
-1. 감도 조절 변수는 없나? - 그냥 곱으로 해버리기?
+1. 마우스 감도 조절 변수는 없나? - 그냥 곱으로 해버리기?
 2. 
 
 */
