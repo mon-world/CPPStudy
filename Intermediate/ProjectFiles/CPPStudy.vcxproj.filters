@@ -53,6 +53,9 @@
     <ClCompile Include="..\..\Source\CPPStudy\private\Enemy.cpp">
       <Filter>Source\CPPStudy\private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CPPStudy\private\EnemyFSM.cpp">
+      <Filter>Source\CPPStudy\private</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\Source\CPPStudy\private\MyActor.cpp">
       <Filter>Source\CPPStudy\private</Filter>
     </ClCompile>
@@ -72,6 +75,9 @@
       <Filter>Source\CPPStudy\public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CPPStudy\public\Enemy.h">
+      <Filter>Source\CPPStudy\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CPPStudy\public\EnemyFSM.h">
       <Filter>Source\CPPStudy\public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CPPStudy\public\MyActor.h">

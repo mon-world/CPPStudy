@@ -9,8 +9,14 @@ AEnemy::AEnemy()
  	// Set this character to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
 	PrimaryActorTick.bCanEverTick = true;
 
-	// mesh
-	ConstructorHelpers::
+	// mesh ºÒ·¯¿È
+	ConstructorHelpers::FObjectFinder<USkeletalMesh> EnemyMesh(TEXT("/Script/Engine.SkeletalMesh'/Game/Characters/Mannequins/Meshes/SKM_Quinn.SKM_Quinn'"));
+
+	if (EnemyMesh.Succeeded())
+	{
+		GetMesh()->SetSkeletalMesh(EnemyMesh.Object);
+		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -90), FRotator(0, -90, 0));
+	}
 
 }
 

@@ -142,6 +142,11 @@
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
       <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CPPStudy\private\EnemyFSM.cpp">
+      <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
+      <AdditionalOptions>$(ClCompile_AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
     <ClCompile Include="..\..\Source\CPPStudy\private\MyActor.cpp">
       <AdditionalIncludeDirectories>$(ClCompile_AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <ForcedIncludeFiles>$(ClCompile_ForcedIncludeFiles)</ForcedIncludeFiles>
@@ -152,6 +157,7 @@
     <ClInclude Include="..\..\Source\CPPStudy\public\CSPlayer.h"/>
     <ClInclude Include="..\..\Source\CPPStudy\public\CSPlayerAnimation.h"/>
     <ClInclude Include="..\..\Source\CPPStudy\public\Enemy.h"/>
+    <ClInclude Include="..\..\Source\CPPStudy\public\EnemyFSM.h"/>
     <ClInclude Include="..\..\Source\CPPStudy\public\MyActor.h"/>
   </ItemGroup>
   <PropertyGroup>
