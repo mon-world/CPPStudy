@@ -2,6 +2,7 @@
 
 
 #include "Enemy.h"
+#include "EnemyFSM.h"
 
 // Sets default values
 AEnemy::AEnemy()
@@ -16,8 +17,14 @@ AEnemy::AEnemy()
 	{
 		GetMesh()->SetSkeletalMesh(EnemyMesh.Object);
 		GetMesh()->SetRelativeLocationAndRotation(FVector(0, 0, -90), FRotator(0, -90, 0));
+		
 	}
 
+	// EnemyFSM 컴포넌트 추가
+	fsm = CreateDefaultSubobject<UEnemyFSM>(TEXT("FSM"));
+	
+	// 어딘가에서 이걸 접근할 수 있을거같은데 왜 못찾겠지
+	//GetCharacterMovement()->bOrientRotationToMovement = true;
 }
 
 // Called when the game starts or when spawned
@@ -38,6 +45,6 @@ void AEnemy::Tick(float DeltaTime)
 void AEnemy::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	
 }
 

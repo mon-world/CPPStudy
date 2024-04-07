@@ -37,10 +37,6 @@ public:
 	// Called every frame
 	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
-public:
-	// 적 ai 관리 컴포넌트 클래스
-	// 컴포넌트는 독립적으로 존재할 수 없다. 액터에 포함되어야함
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "FSMComp") class UEnemyFSM* fsm;
 
 public:
 	// 상태변수
@@ -58,5 +54,44 @@ public:
 	void DamageSate();
 	// 죽음
 	void DeadState();
+
+	//대기, 이동 구현
+	UPROPERTY(EditDefaultsOnly, Category = "FSM") float idleDelayTime = 2;
+	// 경과 시간
+	float currentTime = 0;
+
+	// 타깃 : 
+	UPROPERTY(VisibleAnywhere, Category = "FSM") class ACSPlayer* targetSelf;
+
+	// 내 위치 == enemy의 위치
+	// 방향을 구하기 위해서 vector 값으로 플레이어 위치 - enemy 위치 하면 enemy가 가야할 방향을 알 수 있다.
+	// 여기서 포지션만 가져오는게 아니니까 self로 변경
+	UPROPERTY() class AEnemy* enemySelf;
+
+	// 공격 범위
+	UPROPERTY(EditAnywhere, Category = "FSM") float attackRange = 150.0f;
+
+	// 공격 대기시간 == 기본 쿨타임
+	UPROPERTY(EditAnywhere, Category = "FSM") float attackDelayTime = 2.0f;
+
+	// 피격 알림 이벤트 함수 == 내가 일정이상 때리면 죽게.
+	// 맞을 때 호출되는 함수
+	void OnDamageProcess();
+
+	// 체력
+	UPROPERTY(EditDefaultsOnly, BlueprintReadWrite, Category = "FSM") int hp = 3;
+
+	// 경직시간
+	UPROPERTY(EditAnywhere, Category = "FSM") float damageDelayTime = 2.0f;
+
+	// 시체가 바닥으로 점점 내려감 == z축 감소시킴
+	UPROPERTY(EditAnywhere, Category = "FSM") float deadSpeed = 50.0f;
+
+
+	// Enemy를 소유하고 있는 AIController
+	// AEnemy는 캐릭터 클래스이고, 이는 곧 APawn 클래스이다. 
+	// 이를 제어하기 위한 목적 클래스가 APlayerController 이고,  
+	// AI가 폰을 제어하기 위한 목적의 클래스가 AAIController 이다.
+	UPROPERTY() class AAIController* ai;
 
 };

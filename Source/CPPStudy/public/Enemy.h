@@ -26,4 +26,9 @@ public:
 	// Called to bind functionality to input
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
 
+public:
+	// 적 ai 관리 컴포넌트 클래스
+	// 컴포넌트는 독립적으로 존재할 수 없다. 액터에 포함되어야함
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "FSMComp") class UEnemyFSM* fsm;
+
 };
