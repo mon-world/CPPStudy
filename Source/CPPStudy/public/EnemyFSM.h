@@ -94,4 +94,11 @@ public:
 	// AI가 폰을 제어하기 위한 목적의 클래스가 AAIController 이다.
 	UPROPERTY() class AAIController* ai;
 
+	// 랜덤 위치를 저장할 변수
+	FVector randomPosition;
+
+	// 랜덤 위치 가져오는 함수 : bool 타입을 반환한다. : 제대로 검색 됐는지
+	// 검색할 기준 위치, 검색 범위, 랜덤 위치 저장을 위한 참조 타입 변수
+	bool GetRandomPositionInNavMesh(FVector centerLocation, float radius, FVector& dest);
+
 };

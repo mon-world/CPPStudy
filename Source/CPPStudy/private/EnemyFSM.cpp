@@ -7,8 +7,8 @@
 #include <Kismet/GameplayStatics.h>
 #include "CPPStudy.h"
 #include <Components/CapsuleComponent.h>
-#include <AIController.h>
 #include <NavigationSystem.h>
+#include <AIController.h>
 
 // Sets default values for this component's properties
 UEnemyFSM::UEnemyFSM()
@@ -40,6 +40,7 @@ void UEnemyFSM::BeginPlay()
 	// 그럼 소유자는 뭐지??? 
 	enemySelf = Cast<AEnemy>(GetOwner());
 
+	// AAIController 할당하기
 	ai = Cast<AAIController>(enemySelf->GetController());
 	
 }
@@ -108,7 +109,9 @@ void UEnemyFSM::MoveState()
 	// AddMovementInput : 방향을 넣으면 그쪽으로 이동입력이 된다.
 	// AddMovementInput(입력 적용할 월드 공간 방향, 적용 크기(0.5는 절반, -는 반대방향 : 멀어지기), bool : true인 경우 IsMoveInputIgnored() 결과 무시)
 	// https://docs.unrealengine.com/4.26/en-US/API/Runtime/Engine/GameFramework/APawn/AddMovementInput/
-	enemySelf->AddMovementInput(targetDir.GetSafeNormal());
+	//enemySelf->AddMovementInput(targetDir.GetSafeNormal());
+	// bp에서 똑같은거. 단, 똑똑하게 이동-
+	ai->MoveToLocation(targetPositionVector);
 	
 	//일정 이상 들어오면 공격상태
 	if (targetDir.Size() < attackRange)
@@ -184,5 +187,10 @@ void UEnemyFSM::OnDamageProcess()
 		// 왜? -> 바닥과 충돌하여 뚫고 들어가야 하는데 이게 있어서 충돌해버리면 못뚫고 들어감
 		enemySelf->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
+}
+
+bool UEnemyFSM::GetRandomPositionInNavMesh(FVector centerLocation, float radius, FVector& dest)
+{
+	return false;
 }
 

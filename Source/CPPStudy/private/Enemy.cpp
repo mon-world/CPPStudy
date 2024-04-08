@@ -25,6 +25,8 @@ AEnemy::AEnemy()
 	
 	// 어딘가에서 이걸 접근할 수 있을거같은데 왜 못찾겠지
 	//GetCharacterMovement()->bOrientRotationToMovement = true;
+
+	// navigationinvoker도 여기서 가능하지 않을까
 }
 
 // Called when the game starts or when spawned

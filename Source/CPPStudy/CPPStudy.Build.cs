@@ -12,7 +12,7 @@ public class CPPStudy : ModuleRules
 
 		PrivateDependencyModuleNames.AddRange(new string[] {  });
 
-        PublicDependencyModuleNames.AddRange(new string[] { "EnhancedInput", "Core", "CoreUObject", "Engine", "InputCore", "UMG", "AIModule", "NavigationSystem" });
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "UMG", "NavigationSystem", "AIModule" });
 
 
         // Uncomment if you are using Slate UI
