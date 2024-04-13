@@ -27,6 +27,9 @@ AEnemy::AEnemy()
 	//GetCharacterMovement()->bOrientRotationToMovement = true;
 
 	// navigationinvoker도 여기서 가능하지 않을까
+
+	// ai컨트롤러 -> possess
+	AutoPossessAI = EAutoPossessAI::PlacedInWorldOrSpawned;
 }
 
 // Called when the game starts or when spawned

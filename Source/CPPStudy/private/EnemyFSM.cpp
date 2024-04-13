@@ -78,7 +78,7 @@ void UEnemyFSM::TickComponent(float DeltaTime, ELevelTick TickType, FActorCompon
 }
 
 // idle
-void UEnemyFSM::IdleState() 
+void UEnemyFSM::IdleState()
 {
 	// GetWorld() : 현재 실행중인 월드를 불러온다. 엑터 스폰 등 여러가지 작업 가능
 	// DeltaTimeSeconds : 시간 확장에 따라 조정된 프레임 델타 시간을 초 단위로 반환 == 시스템 성능이 달라도 일정한 값 가져올 수 있음
@@ -92,7 +92,9 @@ void UEnemyFSM::IdleState()
 		// 누적된 시간 초기화
 		currentTime = 0;
 	}
-
+	// 애니 동기화 여기 써야함
+	// 최초 랜덤한 위치 정하기
+	GetRandomPositionInNavMesh(enemySelf->GetActorLocation(), 500, randomPosition);
 }
 // 이동
 void UEnemyFSM::MoveState() 
@@ -103,6 +105,8 @@ void UEnemyFSM::MoveState()
 	FVector enemyPositionVector = enemySelf->GetActorLocation();
 	// 내쪽으로 오도록 하기 : -
 	FVector targetDir = targetPositionVector - enemyPositionVector;
+
+	/*
 	// 적 -> 플레이어 이동
 	// FVector::GetSafeNormal : 벡터의 정규화된 복사본을 가져오고, 길이가 일정 이하라면 0 벡터 반환. <- 최소 벡터 길이를 매개변수로 받음
 	// https://docs.unrealengine.com/4.26/en-US/API/Runtime/Core/Math/FVector/GetSafeNormal/
@@ -112,10 +116,72 @@ void UEnemyFSM::MoveState()
 	//enemySelf->AddMovementInput(targetDir.GetSafeNormal());
 	// bp에서 똑같은거. 단, 똑똑하게 이동-
 	ai->MoveToLocation(targetPositionVector);
+	*/
 	
+	// 위의 것을 플레이어한테 이동은 할건데, 먼저 플레이어 위치를 찾았냐를 묻고,
+	// 찾으면 이동, 아니면 패트롤 기능 넣기
+
+	enemySelf->AddMovementInput(targetDir.GetSafeNormal());
+	auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
+
+	// 목적지 길 찾기 경로 검색???
+	// 둘 다 하위 기능들이 많은 구조체
+	// UNavigationSystemV1의 FindPathSync() 함수를 통해 길 찾기 결과를 가져와야 하는데,
+	// FPathFindingQuery 구조체 정보가 필요하다. 
+	// query : 질의문
+	FPathFindingQuery query;
+	FAIMoveRequest req;
+
+	// 목적지를 인지할 수 있는 범위
+	// == 도착지의 범위
+	req.SetAcceptanceRadius(3);
+	// 여기까지, 도착지에서 3센티 근방에 도달하면 이동 가능하다는 것.  
+
+	// 도착지 == 타겟의 위치 정보 넘겨주기
+	req.SetGoalLocation(targetPositionVector);
+
+
+	// 길 찾기를 위한 쿼리 생성
+	// PathfindingQuery 즉, 길 찾기를 수행할 쿼리를 만드는 함수
+	// 이 함수가 쿼리를 만들기 위한 조건으로 FAIMoveRequest <- req 정보가 필요함. 
+	ai->BuildPathfindingQuery(req, query);
+	// 길 찾기 결과 가져오기
+	FPathFindingResult r = ns->FindPathSync(query);
+
+
+	// 이제 길을 찾았으니 이동해야함  
+	// 성공 -> 이동 / 실패 -> 랜덤위치 찾고, 이동하고 반복  
+	if (r.Result == ENavigationQueryResult::Success)
+	{
+		ai->MoveToLocation(targetPositionVector);
+	}
+	//else
+	//{
+	//	// 목적지가 아닌, 랜덤 위치로 이동시키기
+	//	auto result = ai->MoveToLocation(randomPosition);
+	//	// 목적지 도달하면 다시 랜덤위치를 줘서, 이동
+	//	// EPathFollowingRequestResult : 3가지 타입 : Failed, AlreadyAtGoal, RequestSuccessful  
+	//	// 어떻게 써야하지????
+	//	if (result == EPathFollowingRequestResult)
+	//	{
+	//		// 새로운 랜덤 위치 가져오기
+	//		// 밑에 있음. 
+	//		// 랜덤 위치 가져오는 함수 : bool 타입을 반환한다. : 제대로 검색 됐는지
+	//		// 검색할 기준 위치, 검색 범위, 랜덤 위치 저장을 위한 참조 타입 변수
+	//		GetRandomPositionInNavMesh(enemySelf->GetActorLocation(), 500, randomPosition);
+	//	}
+
+
+	//}
+
+
+
 	//일정 이상 들어오면 공격상태
 	if (targetDir.Size() < attackRange)
 	{
+		// 먼저 길 찾기를 정지해 주고 때려야함
+		ai->StopMovement();
+
 		enemyState = EEnemyState::Attack;
 	}
 }
@@ -138,6 +204,8 @@ void UEnemyFSM::AtackState()
 	if (distanceTargetEnemy > attackRange)
 	{
 		enemyState = EEnemyState::Move;
+
+		GetRandomPositionInNavMesh(enemySelf->GetActorLocation(), 500, randomPosition);
 	}
 }
 // 피격
@@ -168,6 +236,7 @@ void UEnemyFSM::DeadState()
 	}
 }
 
+
 void UEnemyFSM::OnDamageProcess()
 {
 	// 나중에 공격력? STR 같은거 넣어줘서 hp -= STR * 계수 이렇게 해주면 될듯
@@ -187,10 +256,35 @@ void UEnemyFSM::OnDamageProcess()
 		// 왜? -> 바닥과 충돌하여 뚫고 들어가야 하는데 이게 있어서 충돌해버리면 못뚫고 들어감
 		enemySelf->GetCapsuleComponent()->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 	}
+
+	ai->StopMovement();
 }
+
+// 랜덤 위치 가져오는 함수 : bool 타입을 반환한다. : 제대로 검색 됐는지
+// 검색할 기준 위치, 검색 범위, 랜덤 위치 저장을 위한 참조 타입 변수
 
 bool UEnemyFSM::GetRandomPositionInNavMesh(FVector centerLocation, float radius, FVector& dest)
 {
-	return false;
-}
+	// 네비 시스템 :	https://docs.unrealengine.com/4.26/en-US/BlueprintAPI/AI/Navigation/GetNavigationSystem/
+	// 블루프린트 함수라고만 나와있음 ???
+	// NavigationSystem에 객체 가져옴
+	auto ns = UNavigationSystemV1::GetNavigationSystem(GetWorld());
 
+	// 들어가보니 struct 이고, location과 NavNodeRef가 있음, 그리고 FNavLocation() 있음
+	// location : 경로의 베이스에 상대적인 위치
+	// NavNodeRef : 네비게이션 데이터의 노드 참조
+	// https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/AI/Navigation/FNavLocation?application_version=5.0
+	// 탐색 데이터의 지점 설명 -> 변수로 FVector 와 NavNodeRef 받음
+	FNavLocation loc;
+
+	// https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/NavigationSystem/UNavigationSystemV1/GetRandomReachablePointInRadius?application_version=5.3
+	// GetRandomReachablePointInRadius : 원점 주변의 반경으로 제한된 탐색 가능한 공간에서 임의의 도달 가능한 지점을 찾는다.
+	// 위치가 발각되면 true, 아님 false
+	// GetRandomReachablePointInRadius(원점으로 삼을 좌표, 반경, 위치정보를 담을 변수 loc)
+	bool result = ns->GetRandomReachablePointInRadius(centerLocation, radius, loc);
+
+	// 랜덤한 위치정보를 dest에 할당한다.
+	dest = loc.Location;
+
+	return result;
+}

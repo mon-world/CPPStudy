@@ -10,8 +10,8 @@ UCLASS()
 class CPPSTUDY_API AEnemyManager : public AActor
 {
 	GENERATED_BODY()
-	
-public:	
+
+public:
 	// Sets default values for this actor's properties
 	AEnemyManager();
 
@@ -19,7 +19,7 @@ protected:
 	// Called when the game starts or when spawned
 	virtual void BeginPlay() override;
 
-public:	
+public:
 	// Called every frame
 	virtual void Tick(float DeltaTime) override;
 
@@ -27,6 +27,7 @@ public:
 	// 랜덤시간의 최소 최댓값 : 1~5 사이에서 뽑겠다
 	UPROPERTY(EditAnywhere, Category = "SpawnSettings") float minTime = 1;
 	UPROPERTY(EditAnywhere, Category = "SpawnSettings") float maxTime = 5;
+
 	// 스폰할 위치 정보 배열
 	// AActor* 형의 값이 들어가는 arr
 	// Tarray는 템플릿 클래스, 타입이 같은 다른 오브젝트들을 넣을 수 있는 클래스 == 컨테이너 클래스
@@ -37,11 +38,13 @@ public:
 	// add는 임시 데이터 타입을 생성 후 내용물을 컨테이너 안의 새로운 데이터 타입으로 이동 / emplace는 직접 만듦 - 임시변수 생성 x
 	// append : 다른 TArray 또는 일반 c배열로의 포인터 및 해당 배열의 크기에 다수의 엘리먼트를 한꺼번에 넣을 수 있음
 	// -> 노션에 정리
+	// TArray 형태라 하위 여러개 받을 수 있는듯. + 누르면 추가되게. 에디터에서 확인 ㄱㄱ  
 	UPROPERTY(EditAnywhere, Category = "SpawnSettings") TArray<class AActor*> spawnPoints;
+
 	// AEenmy 타입의 bp 할당받을 변수
 	// TSubclassOf<T>
 	// UClass 타입 안정성을 보장하는 템플릿 클래스
-	// 클래스 할당의 선택지를 제핞시킬 수 있다.
+	// 클래스 할당의 선택지를 제한시킬 수 있다.
 	// https://jhtop0419.tistory.com/51
 	UPROPERTY(EditAnywhere, Category = "SpawnSettings") TSubclassOf<class AEnemy> enemyFactory;
 
@@ -63,6 +66,11 @@ public:
 	// 콜백함수 만들어놓으면 뒤에 맘대로 순서를 정해서 쓸 수 있다.  
 	FTimerHandle spawnTimerHandle;
 
+
 	// 적 생성 함수
 	void CreateEnemy();
+
+	// 스폰할 위치 동적 찾아 할당하기 - 거기서 자세한 설명
+	// BP_EnemySpawnPoint로 등록된 이름의 액터를 모두 찾아 배열에 추가 : spawnPoints
+	void FindSpawnPoints();
 };
