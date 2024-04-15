@@ -10,6 +10,14 @@ class UInputMappingContext;
 class UInputAction;
 struct FInputActionInstance;
 
+// 델리게이트 왜함? -> 델리게이트 실행해 주면, 연결된 함수 자동 실행
+// 즉, 호출하는 애 입장에서 누가 함수를 등록해 놨는지 알 필요 없음
+// 등록된 컴포넌트를 미리 알고 있지 않더라도 사용자의 입력을 전달가능하다.
+// == 여기에 등록한 이벤트를 실행해줌으로써 입력 바인딩했던거 : bindaction 처리가 가능하다.
+// 멀티캐스트 델리게이트. 즉, 델리게이트에 여러 개의 처리 함수를 등록하겠다는 뜻
+// 매개변수를 1개만 받으므로 OneParam을 사용한다. -> 자료형 써줘야함
+// 이름, 자료형 순서
+DECLARE_MULTICAST_DELEGATE_OneParam(FinputBindingDelegate, class UInputComponent*);
 
 UCLASS()
 class CPPSTUDY_API ACSPlayer : public ACharacter
@@ -19,6 +27,10 @@ class CPPSTUDY_API ACSPlayer : public ACharacter
 public:
 	// Sets default values for this character's properties
 	ACSPlayer();
+
+	// 입력 바인딩 델리게이트
+	// 델리게이트 자료형 변수 선언
+	FinputBindingDelegate onInputBindingDelegate;
 
 protected:
 	// Called when the game starts or when spawned

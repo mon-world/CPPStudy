@@ -169,3 +169,7 @@ void ACSPlayer::SprintEnd(const FInputActionInstance& Instance)
 2. 
 
 */
+
+DECLARE_MULTICAST_DELEGATE_OneParam(FinputBindingDelegate, UInputComponent*)
+{
+}
