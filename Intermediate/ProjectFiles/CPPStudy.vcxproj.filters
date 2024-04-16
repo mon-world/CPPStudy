@@ -65,6 +65,9 @@
     <ClCompile Include="..\..\Source\CPPStudy\private\PlayerBaseComponent.cpp">
       <Filter>Source\CPPStudy\private</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\Source\CPPStudy\private\PlayerMove.cpp">
+      <Filter>Source\CPPStudy\private</Filter>
+    </ClCompile>
     <Filter Include="Source\CPPStudy\public">
       <UniqueIdentifier>{0B883734-42BC-356B-98BF-F76616781ED4}</UniqueIdentifier>
     </Filter>
@@ -93,6 +96,9 @@
       <Filter>Source\CPPStudy\public</Filter>
     </ClInclude>
     <ClInclude Include="..\..\Source\CPPStudy\public\PlayerBaseComponent.h">
+      <Filter>Source\CPPStudy\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Source\CPPStudy\public\PlayerMove.h">
       <Filter>Source\CPPStudy\public</Filter>
     </ClInclude>
   </ItemGroup>

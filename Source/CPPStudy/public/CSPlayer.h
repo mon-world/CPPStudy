@@ -45,9 +45,10 @@ public:
 
 	// UPROPERTY(EditAnywhere) : BP 에디터나 배치된 오브젝트 디테일 패널에서 볼수만 있음		// https://darkcatgame.tistory.com/62
 	// 뒤 카테고리는 디테일 패널의 항목 이름을 명칭할 수 있음, | 를 써서 붙이면 하위 카테고리 명칭 가능하다.  
-	UPROPERTY(VisibleAnywhere, Category = Camera)
+	
 	// class를 통한 전방 선언 이유 : 안그러면 위에 스프링암 컴포넌트.h를 #include 해야하는데, 컴파일 시간 늘어남
 	// 포인터인 이유 : USpringArmComponent 메모리 크기 모름
+	UPROPERTY(VisibleAnywhere, Category = Camera)
 	class USpringArmComponent* springArmComp;
 	// BlueprintReadOnly : 블루프린트에서 변수 읽기 가능
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera)
@@ -83,7 +84,12 @@ public:
 	//UPROPERTY(EditAnywhere, Category = "Input")
 	//UInputAction* DashAction;
 
-
+	// 컴포넌트를 리펙토링(액터의 요소들을 컴포넌트로 뜯어냄. 클래스 기능을 옮기거나 설계 구조를 바꿈)
+	// 유지 보수가 쉽고, 코드 최적화 및 설계 구조 변경 쉬움
+	// 그래서 UPlayerBaseComponent* 타입의 변수를 추가함
+	// 그 후 UPlayerMove 클래스를 생성해 playerMove를 할당할 것.
+	UPROPERTY(VisibleAnywhere, Category = "Component") 
+	class UPlayerBaseComponent* playerMove;
 
 
 	// Input | Jump : BP_Player의 details에 Input의 하위 카테고리로 Jump가 생긴다. 
@@ -101,8 +107,10 @@ public:
 	
 
 protected:
+
+	// PlayerMove.h 로 이사갑니다.
 	void Move(const FInputActionInstance& Instance);
-	void Look(const FInputActionInstance& Instance);
+	// void Look(const FInputActionInstance& Instance);
 	void SprintStart(const FInputActionInstance& Instance);
 	void SprintEnd(const FInputActionInstance& Instance);
 	//void Dash(const FInputActionInstance& Instance);

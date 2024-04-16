@@ -2,6 +2,7 @@
 
 
 #include "CSPlayer.h"
+#include "PlayerMove.h"						// 클래스 사용을 위해 씀
 #include <GameFramework/SpringArmComponent.h>
 #include <Camera/CameraComponent.h>
 #include "EnhancedInputComponent.h"
@@ -55,6 +56,11 @@ ACSPlayer::ACSPlayer()
 		csCamComp->SetupAttachment(springArmComp);
 		csCamComp->bUsePawnControlRotation = false;
 	}
+
+	// CreateDefaultSubobject : 클래스를 인스턴스화 시키는 메소드
+	// 위에 이걸로 스프링 암도 만들고, 카메라도 만들고... <> 안에 들어가는 comp를 만들어낸다.
+	// UPlayerMove를 만들어낸 것. playermove 컴포넌트가 CSPlayer에 추가됐다.  
+	playerMove = CreateDefaultSubobject<UPlayerMove>(TEXT("PlayerMove"));
 }
 
 // Called when the game starts or when spawned
@@ -87,9 +93,15 @@ void ACSPlayer::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 	UEnhancedInputComponent* Input = Cast<UEnhancedInputComponent>(PlayerInputComponent);
 
-	// 도대
+	// 입력 바인딩을 컴포넌트에서 처리하도록 한다.
+	// 진짜 집 옮기네
+	// 결국 이 함수도 사용자의 입력 맵핑 값과 처리할 함수를 바인딩해주는 기능을 담당한다.
+	// comp에서 입력 처리를 할 수 있도록 기능을 분산하게 됨
+	playerMove->SetupInputBinding(PlayerInputComponent);
+
+	// PlayerMove.cpp로 이사가요~
 	Input->BindAction(JumpAction, ETriggerEvent::Triggered, this, &ACSPlayer::Jump);
-	Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACSPlayer::Look);
+	// Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &ACSPlayer::Look);
 	Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &ACSPlayer::Move);
 	// 여기서 Input 그대로 사용할 수 없나?
 	// UEnhancedInputComponent 자체가 enhanced 에서 사용하기 위해 쓴것이므로...
@@ -133,17 +145,18 @@ void ACSPlayer::Move(const FInputActionInstance& Instance)
 
 }
 
-void ACSPlayer::Look(const FInputActionInstance& Instance)
-{
-	FVector2D LookVector = Instance.GetValue().Get<FVector2D>();
-
-
-	// Yaw 방향의 이동입력
-	AddControllerYawInput(LookVector.X);
-	// Pitch 방향의 이동입력
-	AddControllerPitchInput(LookVector.Y);
-
-}
+// PlayerMove로 이사~
+//void ACSPlayer::Look(const FInputActionInstance& Instance)
+//{
+//	FVector2D LookVector = Instance.GetValue().Get<FVector2D>();
+//
+//
+//	// Yaw 방향의 이동입력
+//	AddControllerYawInput(LookVector.X);
+//	// Pitch 방향의 이동입력
+//	AddControllerPitchInput(LookVector.Y);
+//
+//}
 
 // 여길 어떻게든 고치기
 

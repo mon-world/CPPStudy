@@ -19,9 +19,11 @@ public:
 	UPlayerBaseComponent() 
 	{
 		// 틱 함수 호출 안되게 막음
+		// .cpp 파일 개조 필요함. 말도 안됨
 		PrimaryComponentTick.bCanEverTick = false;
 	};
 
+	// https://dev.epicgames.com/documentation/en-us/unreal-engine/API/Runtime/Engine/Components/UActorComponent/InitializeComponent?application_version=5.3
 	virtual void InitializeComponent() override;
 
 	// 비긴 플레이 => 가상함수 // 상속받을 클래스에서 재정의해라~
