@@ -3,36 +3,18 @@
 
 #include "PlayerBaseComponent.h"
 
-// Sets default values for this component's properties
-UPlayerBaseComponent::UPlayerBaseComponent()
+void UPlayerBaseComponent::InitializeComponent()
 {
-	// Set this component to be initialized when the game starts, and to be ticked every frame.  You can turn these features
-	// off to improve performance if you don't need them.
-	PrimaryComponentTick.bCanEverTick = true;
+	Super::InitializeComponent();
 
-	// ...
-}
-
-
-// Called when the game starts
-void UPlayerBaseComponent::BeginPlay()
-{
-	Super::BeginPlay();
-
-	// 플레이어 캐스팅 해서 가져온 다음, 움직임을 가져와라.
 	me = Cast<ACSPlayer>(GetOwner());
 	moveComp = me->GetCharacterMovement();
 
-	// ...
-	
+	// 델리게이트에 처리 함수 등록
+	me->onInputBindingDelegate.AddUObject(this, &UPlayerBaseComponent::SetupInputBinding);
 }
 
-
-// Called every frame
-void UPlayerBaseComponent::TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction)
+void UPlayerBaseComponent::BeginPlay()
 {
-	Super::TickComponent(DeltaTime, TickType, ThisTickFunction);
-
-	// ...
+	Super::BeginPlay();
 }
-

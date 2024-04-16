@@ -22,6 +22,8 @@ public:
 		PrimaryComponentTick.bCanEverTick = false;
 	};
 
+	virtual void InitializeComponent() override;
+
 	// 비긴 플레이 => 가상함수 // 상속받을 클래스에서 재정의해라~
 	virtual void BeginPlay() override;
 
@@ -32,11 +34,6 @@ public:
 	// 컴포넌트 소유 액터
 	UPROPERTY() ACSPlayer* me;
 	UPROPERTY()	UCharacterMovementComponent* moveComp;
-
-
-public:	
-	// Called every frame
-	virtual void TickComponent(float DeltaTime, ELevelTick TickType, FActorComponentTickFunction* ThisTickFunction) override;
 
 		
 };
