@@ -18,7 +18,23 @@ class CPPSTUDY_API UPlayerMove : public UPlayerBaseComponent
 	GENERATED_BODY()
 
 public:
-	UPlayerMove();
+	// https://forums.unrealengine.com/t/ue-5-enhanced-input-c-problems/1412752/2
+	// 여기 너무 억지인데... 이정도면 comp로 뽑는 의미가 없을듯?
+
+	UPlayerMove()
+	{
+		static ConstructorHelpers::FObjectFinder<UInputMappingContext> InputContext(TEXT("/Script/EnhancedInput.InputMappingContext'/Game/Input/IMC_Controller.IMC_Controller'"));
+		if (InputContext.Object != nullptr)
+		{
+			DefaultMappingContext = InputContext.Object;
+		}
+
+		static ConstructorHelpers::FObjectFinder<UInputAction> InputLook(TEXT("/Script/EnhancedInput.InputAction'/Game/Input/IA_LookP.IA_LookP'"));
+		if (InputContext.Object != nullptr)
+		{
+			LookAction = InputLook.Object;
+		}
+	}
 
 	// 비긴 플레이 사용해야하므로 순수가상함수로 선언 - 무조건 바꿔써라
 	virtual void BeginPlay() override;

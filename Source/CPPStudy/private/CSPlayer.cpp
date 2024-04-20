@@ -67,6 +67,8 @@ ACSPlayer::ACSPlayer()
 void ACSPlayer::BeginPlay()
 {
 	Super::BeginPlay();
+
+	// 이곳에서 어떻게든 PlayerMove.h나 .cpp로 옮기는 연구 필요
 	APlayerController* PlayerController = Cast<APlayerController>(Controller);
 	UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem< UEnhancedInputLocalPlayerSubsystem>(PlayerController->GetLocalPlayer());
 	if (Subsystem != nullptr)

@@ -24,3 +24,5 @@ void UPlayerBaseComponent::BeginPlay()
 {
 	Super::BeginPlay();
 }
+
+// 조건 : 모든걸 가져오되, 경로까지 가져와야함. 그래야만 작동한다.

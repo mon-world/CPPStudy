@@ -9,22 +9,6 @@
 #include "InputMappingContext.h"
 
 
-// https://forums.unrealengine.com/t/ue-5-enhanced-input-c-problems/1412752/2
-UPlayerMove::UPlayerMove()
-{
-	static ConstructorHelpers::FObjectFinder<UInputMappingContext> InputContext(TEXT("/Script/EnhancedInput.InputMappingContext'/Game/Input/IMC_Controller.IMC_Controller'"));
-	if (InputContext.Object != nullptr)
-	{
-		DefaultMappingContext = InputContext.Object;
-	}
-
-	static ConstructorHelpers::FObjectFinder<UInputAction> InputLook(TEXT("/Script/EnhancedInput.InputAction'/Game/Input/IA_LookP.IA_LookP'"));
-	if (InputContext.Object != nullptr)
-	{
-		LookAction = InputLook.Object;
-	}
-}
-
 void UPlayerMove::BeginPlay()
 {
 	// ¾ê ÁøÂ¥ ¿Ö¾¸
