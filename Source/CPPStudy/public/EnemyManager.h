@@ -39,6 +39,12 @@ public:
 	// append : 다른 TArray 또는 일반 c배열로의 포인터 및 해당 배열의 크기에 다수의 엘리먼트를 한꺼번에 넣을 수 있음
 	// -> 노션에 정리
 	// TArray 형태라 하위 여러개 받을 수 있는듯. + 누르면 추가되게. 에디터에서 확인 ㄱㄱ  
+
+
+	// 추가 공부
+	// class를 전방 선언하거나, 위쪽에 선언해야함.  
+	// class들을 포인터로 가져와야 하는 이유 : 용량 개많음. 복사 할거 아니잖아?  
+
 	UPROPERTY(EditAnywhere, Category = "SpawnSettings") TArray<class AActor*> spawnPoints;
 
 	// AEenmy 타입의 bp 할당받을 변수

@@ -48,6 +48,10 @@ void UPlayerMove::Look(const FInputActionInstance& Instance)
 
 }
 
+void UPlayerMove::Move(const FInputActionInstance& Instance)
+{
+}
+
 void UPlayerMove::SetupInputBinding(UInputComponent* PlayerInputComponent)
 {
 	// 이게 뭔지 한번도 의문이 없었네
@@ -57,6 +61,7 @@ void UPlayerMove::SetupInputBinding(UInputComponent* PlayerInputComponent)
 	// LookAction이 문제냐, Input이 문제냐...
 	// 아무리 봐도 LookAction을 어떻게 하는지 봐야겠다
 	Input->BindAction(LookAction, ETriggerEvent::Triggered, this, &UPlayerMove::Look);
+	Input->BindAction(MoveAction, ETriggerEvent::Triggered, this, &UPlayerMove::Move);
 }
 
 

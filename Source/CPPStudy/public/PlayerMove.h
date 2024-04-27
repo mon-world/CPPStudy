@@ -40,13 +40,19 @@ public:
 	virtual void BeginPlay() override;
 	
 public:
-	UPROPERTY(EditAnywhere, Category = Input) UInputMappingContext* DefaultMappingContext;
-	UPROPERTY(EditAnywhere, Category = "Input") UInputAction* LookAction;
+	UPROPERTY(EditAnywhere, Category = Input) 
+	UInputMappingContext* DefaultMappingContext;
+	UPROPERTY(EditAnywhere, Category = "Input") 
+	UInputAction* LookAction;
+	UPROPERTY(EditAnywhere, Category = "Input") 
+	UInputAction* MoveAction;
 
 public:
 	// PlayerBaseComponent, CSPlayer로 include 하기 때문에 알아먹는건가...? 왜 에러 아니지
 	// h 파일을 많이 include 하는 파일을 또 include 하면 어떻게 되지 -> .h와 .cpp 관계 생각하면 될지도
 	void Look(const FInputActionInstance& Instance);
+	void Move(const FInputActionInstance& Instance);
+	void Jump(const FInputActionInstance& Instance);
 
 	// Called to bind functionality to input
 	// SetupPlayerInputComponent 이거 왜 안씀? or 안됨?
