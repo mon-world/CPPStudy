@@ -189,7 +189,8 @@ void UEnemyFSM::MoveState()
 void UEnemyFSM::AtackState() 
 {
 	// 평타에 쿨타임 있게
-	currentTime += GetWorld()->DeltaTimeSeconds;
+	// 바로 공격
+	currentTime += GetWorld()->DeltaTimeSeconds + attackDelayTime;
 	// 쿨이 돌았으면 공격하고, 다시 쿨다운 시작
 	if (currentTime > attackDelayTime)
 	{
@@ -215,6 +216,7 @@ void UEnemyFSM::DamageSate()
 	currentTime += GetWorld()->DeltaTimeSeconds;
 	if (currentTime > damageDelayTime)
 	{
+		// 맞고 나서 돌아가기
 		enemyState = EEnemyState::Idle;
 		currentTime = 0;
 	}
